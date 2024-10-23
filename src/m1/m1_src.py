@@ -77,12 +77,12 @@ class Inter:
 
         if range is None:
             # default range
-            range = (-2, 7)
+            range = (min(x_points), max(x_points))
         
         if equation is None:
             equation = Inter.getPolyEq(x_points, y_points)
 
-        range_distance = np.abs(range[1]-range[0])
+        range_distance = np.abs(range[0]-range[1])
 
         # Use Sympy to solve issue that putting equation does not work because it is a string.
         # One another option I could do such as eval(equation.replace('x', 'x')), eval(equation.replace('x', 'x_points'))
@@ -90,7 +90,7 @@ class Inter:
         x_sym = sp.symbols('x')
         expr = sp.sympify(equation)
 
-        x = np.linspace(range[0], range[1], range_distance*100)
+        x = np.linspace(range[0], range[1], int(range_distance*100))
 
         y_values = [expr.subs(x_sym, val) for val in x] 
 
@@ -103,10 +103,12 @@ class Inter:
         if y_points is not None:
             plt.scatter(x_points, y_points, color='blue', label='Data points', zorder=2)
         if y_points is None:
-            y_points = [expr.sub(x_sym, val) for val in x_points]
+            y_points = [expr.subs(x_sym, val) for val in x_points]
             
             plt.scatter(x_points, y_points, color='blue', label='Data points', zorder=2)
-
+        
+        # plt.axis([x_points[0]-10, x_points[-1]+10, min(y_points)-10, max(y_points)+10])
+        plt.grid()
         plt.show()
 
         
