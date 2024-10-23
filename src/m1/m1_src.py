@@ -67,9 +67,6 @@ class Inter:
 
         return equation
     
-    # TODO: construct graphing logic
-    # 1. Draw points on where given x values are.
-    # 2. Give 
     @staticmethod
     def graphPoly(x_points, y_points=None, equation=None, range=(None)):
         if x_points is None and y_points is None:
@@ -114,7 +111,7 @@ class Inter:
         
 
 if __name__ == "__main__":
-    x = [i for i in range(1, 6)]
-    y = [1, 10, 3, 6, 7]
+    x = [i for i in range(1, 5)]
+    y = [1, 10, 3, 6]
 
     Inter.graphPoly(x, y, None)
